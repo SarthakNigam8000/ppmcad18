@@ -1,0 +1,27 @@
+#tag = input("Enter the tag")
+
+list = [["server1", "10.1.1.1", "dev"], ["server2", "10.2.1.1", "prod"], ["server3", "10.3.1.1", "prod"],
+        ["server4", "10.4.1.1", "qa"], ["server5", "10.2.1.1", "qa"], ["server6", "10.6.1.1", "dev"],
+        ["server7", "10.7.1.1", "prod"]]
+
+#print(list)
+
+#1st
+#for i in list:
+ #   if i[2] == tag:
+  #      print(i)
+
+#2nd
+same_ip=[]
+for i in list:
+    same_ip= same_ip.append(i[1])
+
+print(same_ip)
+
+#3rd
+
+#Server = input("Enter the server name to be searched ")
+
+#for i in list:
+ #   if i[0] == Server:
+ #       print(i)
