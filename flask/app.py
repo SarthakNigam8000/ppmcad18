@@ -58,8 +58,9 @@ def users(username):
      for i in usersList:
          if i["username"] == username:
              return f"User: {i['username']}, Age: {i['age']}, Name: {i['name']}"
-         else: 
-             return "No User present"
+          
+     return "No User present"
+
 @app.route("/login", methods=["POST"])
 
 def login():
