@@ -4,7 +4,7 @@ from pymongo import MongoClient
 
 app = Flask(__name__)
 
-client = MongoClient("mongodb+srv://sarthaknigamm_db_user:5SDAco6pwC7mZ19o@hv.jhwezgk.mongodb.net/")
+client = MongoClient("/")
 
 database = client["b18a"]
 
@@ -18,19 +18,20 @@ def main():
 
     return "Hello to ecommerce!"
 
+
  
 
-@app.route("/people")
+# @app.route("/people")
 
-def people():
+# def people():
 
-    user = request.args.get("username")
+#     user = request.args.get("username")
 
-    age = request.args.get("age")
+#     age = request.args.get("age")
 
-    result = users_collection.insert_one({"username": user, "age": age})
+#     result = users_collection.insert_one({"username": user, "age": age}) # to insert the data in the DB
 
-    return f"user: {user} | age: {age}"
+#     return f"user: {user} | age: {age}"
 
  
 
