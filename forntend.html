@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inventory Management</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#f4f4f4;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+    padding:20px;
+}
+
+.container{
+    width:100%;
+    max-width:700px;
+}
+
+h1{
+    text-align:center;
+    margin-bottom:20px;
+    color:#333;
+}
+
+.card{
+    background:#fff;
+    padding:20px;
+    margin-bottom:20px;
+    border-radius:10px;
+    box-shadow:0 5px 15px rgba(0,0,0,.1);
+}
+
+.card h2{
+    margin-bottom:15px;
+    color:#444;
+}
+
+input{
+    width:100%;
+    padding:12px;
+    margin:8px 0;
+    border:1px solid #ccc;
+    border-radius:5px;
+    font-size:15px;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    background:#007bff;
+    color:white;
+    border:none;
+    border-radius:5px;
+    font-size:16px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+button:hover{
+    background:#0056b3;
+}
+
+#addResult{
+    margin-top:10px;
+    color:green;
+    font-weight:bold;
+}
+
+#result{
+    margin-top:20px;
+}
+
+.product{
+    background:#eef6ff;
+    padding:15px;
+    border-radius:8px;
+    border-left:5px solid #007bff;
+}
+
+.product p{
+    margin:8px 0;
+}
+
+.error{
+    color:red;
+    margin-top:10px;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+
+    <h1>📦 Inventory Management</h1>
+
+    <!-- Add Product -->
+    <div class="card">
+
+        <h2>Add Product</h2>
+
+        <input type="text" id="name" placeholder="Product Name">
+
+        <input type="number" id="quantity" placeholder="Quantity">
+
+        <input type="number" id="price" placeholder="Price">
+
+        <input type="text" id="sku" placeholder="SKU ID">
+
+        <input type="text" id="category" placeholder="Category">
+
+        <button onclick="addProduct()">Add Product</button>
+
+        <p id="addResult"></p>
+
+    </div>
+
+    <!-- Search Product -->
+    <div class="card">
+
+        <h2>Search Product</h2>
+
+        <input type="text" id="searchName" placeholder="Enter Product Name">
+
+        <button onclick="searchProduct()">Search</button>
+
+        <div id="result"></div>
+
+    </div>
+
+</div>
+
+<script>
+const BASE_URL = "http://127.0.0.1:3005";
+
+// Add Product
+async function addProduct() {
+
+    const product = {
+        name: document.getElementById("name").value,
+        quantity: Number(document.getElementById("quantity").value),
+        price: Number(document.getElementById("price").value),
+        sku_id: document.getElementById("sku").value,
+        category: document.getElementById("category").value
+    };
+
+    try {
+
+        const response = await fetch(`${BASE_URL}/addproduct`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(product)
+        });
+
+        const data = await response.json();
+
+        document.getElementById("addResult").innerText = data.msg;
+
+        // Clear form
+        document.getElementById("name").value = "";
+        document.getElementById("quantity").value = "";
+        document.getElementById("price").value = "";
+        document.getElementById("sku").value = "";
+        document.getElementById("category").value = "";
+
+    }
+    catch (err) {
+        document.getElementById("addResult").innerHTML =
+            "<span class='error'>Failed to add product.</span>";
+    }
+
+}
+
+// Search Product
+async function searchProduct() {
+
+    const name = document.getElementById("searchName").value;
+
+    try {
+
+        const response = await fetch(`${BASE_URL}/search?name=${encodeURIComponent(name)}`);
+
+        const data = await response.json();
+
+        const p = data.msg;
+
+        document.getElementById("result").innerHTML = `
+            <div class="product">
+                <h3>${p.name}</h3>
+                <p><strong>Quantity:</strong> ${p.quantity}</p>
+                <p><strong>Price:</strong> ₹${p.price}</p>
+                <p><strong>SKU ID:</strong> ${p.sku_id}</p>
+                <p><strong>Category:</strong> ${p.category}</p>
+                <p><strong>Database ID:</strong> ${p._id}</p>
+            </div>
+        `;
+
+    }
+    catch (err) {
+
+        document.getElementById("result").innerHTML =
+            "<p class='error'>Product not found.</p>";
+
+    }
+
+}
+</script>
+
+</body>
+</html>

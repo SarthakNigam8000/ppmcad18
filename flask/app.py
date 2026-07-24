@@ -40,7 +40,6 @@ usersList = [
 
 ]
 
-
 @app.route('/', methods=["GET"])
 def main():
     return "Hello World"
@@ -61,8 +60,7 @@ def users(username):
           
      return "No User present"
 
-@app.route("/login", methods=["POST"])
-
+@app.route("/login", methods=["POST"]) 
 def login():
 
     username = request.get_json("username")
@@ -74,8 +72,7 @@ def login():
     return username         
 
 
-@app.route("/people")
-
+@app.route("/people") # by default it will take GET Method
 def people():
 
     user = request.args.get("user")
