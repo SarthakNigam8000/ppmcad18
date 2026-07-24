@@ -24,17 +24,7 @@
 
 ## 🚀 About the Project
 
-**ppmcad18** is designed to [mention the core purpose or problem your project solves, e.g., handle specific CAD operations, model generation, or algorithmic computations]. 
-
-* Add any background information, goals, or motivation behind building this repository here.
-
----
-
-## ✨ Features
-
-- **Feature 1:** Brief description of a key functionality (e.g., Fast parsing and rendering of CAD data).
-- **Feature 2:** Brief description of another core feature (e.g., Modular architecture allowing easy extension).
-- **Feature 3:** Description of algorithms, performance benefits, or UI components included.
+**ppmcad18** is designed to [Have an experinece on the basics of devops]. 
 
 ---
 
