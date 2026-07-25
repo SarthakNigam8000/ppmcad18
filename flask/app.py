@@ -5,7 +5,46 @@ from flask import Flask, request
 app = Flask(__name__)
 
 # Empty list jisme users ka data store hoga
-usersList = []
+usersList = [
+
+    {
+
+        "id": 1,
+
+        "username": "prashant",
+
+        "name": "Prashant Dey",
+
+        "age": 30
+
+    },
+
+    {
+
+        "id": 2,
+
+        "username": "ashish",
+
+        "name": "Ashish Kumar",
+
+        "age": 70
+
+    },
+
+    {
+
+        "id": 3,
+
+        "username": "sarthak",
+
+        "name": "Sarthak Nigam",
+
+        "age": 29
+
+    }
+
+
+]
 
 
 # Home Route
