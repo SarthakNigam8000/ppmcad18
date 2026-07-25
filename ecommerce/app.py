@@ -17,15 +17,16 @@ def main():
 
 @app.route('/addproduct', methods=["POST"])
 def addproduct():
-    data = request.get_json() # this is the object or u can say it like dic
-                            # here we are getting the inputs from the UI 
+    # Frontend ya UI se jo JSON data aa raha hai, usko extract kar rahe hain
+    data = request.get_json() 
+                            
     name = data.get("name")
     qty = data.get("quantity")
     price = data.get("price")
     sku_id = data.get("sku_id")
     category = data.get("category")
 
-                                        # converting the inputs to dic 
+    # Inputs ko ek dictionary mein daal rahe hain taaki MongoDB mein save kar sakein
     product = {
         "name": name,
         "quantity": qty,
@@ -34,20 +35,24 @@ def addproduct():
         "category": category
     }
 
-    result = products_collection.insert_one(product) # inserting the list.
+    # Product document ko MongoDB collection ke andar insert kar rahe hain
+    result = products_collection.insert_one(product) 
     return {"msg": "data added"}
 
 
 @app.route("/search")
 def searchproduct():
-    name = request.args.get("name") #takes the value from the URL
+    # URL se 'name' query parameter ki value nikal rahe hain (jaise: /search?name=apple)
+    name = request.args.get("name") 
 
-    product = products_collection.find_one({"name": name}) #finds the collection naming: name, its returns object and we cannot print directly
-    product["_id"] = str(product["_id"]) #it will covert the obj to str 
+    # Database mein product ko dhoondh rahe hain; ye ek object/dictionary return karta hai
+    product = products_collection.find_one({"name": name}) 
+    
+    # MongoDB ke '_id' (ObjectId) ko string mein convert kar rahe hain taaki JSON mein error na aaye
+    product["_id"] = str(product["_id"]) 
 
-    return {"msg": product} # now here we can now print after the conversion
+    return {"msg": product} 
  
 
-if __name__=="__main__":
-
+if __name__ == "__main__":
     app.run(debug=True, port=3005)
